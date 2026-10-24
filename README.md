@@ -33,27 +33,27 @@ GA4 README template.
 
 ### 3: A TrimGalore container, its help info, and three options
 
-*Answer*: The container link (URI) is:
+*Answer*: The container link (URI) is: oras://community.wave.seqera.io/library/trim-galore:2.3.0--a56e49e832976df4
 
 Code to run `trim_galore --help` with the container:
 
 ```bash
-# Your command:
+# Your command: apptainer exec "oras://community.wave.seqera.io/library/trim-galore:2.3.0--a56e49e832976df4" trim_galore --help
 ```
 
 <!-- You don't need to paste the TrimGalore help output -->
 
-*Answer*: The option to indicate that the reads are paired-end:
+*Answer*: The option to indicate that the reads are paired-end: --paired
 
-*Answer*: The option to set the output dir:
+*Answer*: The option to set the output dir: -o, --output_dir
 
-*Answer*: The option to run FastQC on the trimmed FASTQ files:
+*Answer*: The option to run FastQC on the trimmed FASTQ files: --fastqc
 
 ### 4: Default thresholds
 
-*Answer*: A) The default base quality score threshold:
+*Answer*: A) The default base quality score threshold: 20
 
-*Answer*: B) The default read length threshold:
+*Answer*: B) The default read length threshold: 20
 
 ### 5: Write the `trimgalore.sh` script
 
@@ -64,7 +64,7 @@ Code to run `trim_galore --help` with the container:
 Code to run the script:
 
 ```bash
-# Your command:
+# Your command:bash scripts/trimgalore.sh ../garrigos/fastq/S63_R1.fastq.gz ../garrigos/fastq/S63_R2.fastq.gz results/trimgalore
 ```
 
 <!-- You don't need to paste the TrimGalore logging output -->
@@ -72,45 +72,61 @@ Code to run the script:
 Code to list the output files:
 
 ```bash
-# Your command:
+# Your command:ls -l results/trimgalore/
 ```
 
 The output of the command was:
 
 ```
+total 51090
+-rw-rw----+ 1 keeleyalexander PAS3493     2642 Oct 24 11:40 S63_R1.fastq.gz_trimming_report.json
+-rw-rw----+ 1 keeleyalexander PAS3493     2334 Oct 24 11:40 S63_R1.fastq.gz_trimming_report.txt
+-rw-rw----+ 1 keeleyalexander PAS3493   294222 Oct 24 11:40 S63_R1_val_1_fastqc.html
+-rw-rw----+ 1 keeleyalexander PAS3493   362532 Oct 24 11:40 S63_R1_val_1_fastqc.zip
+-rw-rw----+ 1 keeleyalexander PAS3493 25243630 Oct 24 11:40 S63_R1_val_1.fq.gz
+-rw-rw----+ 1 keeleyalexander PAS3493     2318 Oct 24 11:40 S63_R2.fastq.gz_trimming_report.json
+-rw-rw----+ 1 keeleyalexander PAS3493     2396 Oct 24 11:40 S63_R2.fastq.gz_trimming_report.txt
+-rw-rw----+ 1 keeleyalexander PAS3493   279650 Oct 24 11:41 S63_R2_val_2_fastqc.html
+-rw-rw----+ 1 keeleyalexander PAS3493   341189 Oct 24 11:41 S63_R2_val_2_fastqc.zip
+-rw-rw----+ 1 keeleyalexander PAS3493 25740011 Oct 24 11:40 S63_R2_val_2.fq.gz
 ```
 
 *Answer*: What each type of output file contains:
+.htlm = gives the fastqc report with quality and content 
+.zip = same as html but zipped
+.fq.gz = the trimmed sequence reads 
+.json = shows the commands and steps the container took in processing the file 
+.txt = gives an overview of how many sequences were processed, how many were removed, and why they were removed
 
 <!-- If your script failed at first: describe the problem and your fix here. -->
 
 ### 7: Trimming results
 
-*Answer*: Which adapter sequence TrimGalore looked for, and how it decided on this:
+*Answer*: Which adapter sequence TrimGalore looked for, and how it decided on this: Illumina adapter. there was a hit for this adapter sequence
 
-*Answer*: Percentage of reads with adapters in R1 and R2:
+*Answer*: Percentage of reads with adapters in R1 and R2: 13% and 10%
 
-*Answer*: In R1 and R2, were more bases removed by quality trimming or by adapter trimming?
+*Answer*: In R1 and R2, were more bases removed by quality trimming or by adapter trimming? More were removed from adapter trimming
 
-*Answer*: Percentage of read pairs that were removed:
+*Answer*: Percentage of read pairs that were removed: 16.6% and 13.6%
 
 ### 8: Poly-G trimming
 
-*Answer*: Did TrimGalore do poly-G trimming, and did you have to tell it to?
+*Answer*: Did TrimGalore do poly-G trimming, and did you have to tell it to? Yes it did, no I did not specify to.
 
-*Answer*: What TrimGalore concludes about the sequencing technology:
+*Answer*: What TrimGalore concludes about the sequencing technology: It was performed with 2-color chemistry so NovaSeq/NextSeq
 
-*Answer*: Was more poly-G trimming done in R1 or R2? (Optional: any idea why?)
+*Answer*: Was more poly-G trimming done in R1 or R2? (Optional: any idea why?) more in R2. No good guess, maybe because its read after the R1?
 
 ### 9: Compare the FastQC reports before and after trimming
 
 *Answer*: At least two differences between the reports,
-and whether things look better in terms of pass/warn/fail status:
+and whether things look better in terms of pass/warn/fail status: the total number of sequences in the original file is 500000 and in the new file it is 462984. Also in the new file, the per base N content and overrepresented sequences moved to a green check. Things look better in terms of pass/warn/fail status in this new file
 
 *Answer*: Were the short reads with only `N`s removed?
-If so, was that due to the length threshold, or something else?
+If so, was that due to the length threshold, or something else? Yes they were removed as seen in the per base N content and sequence length distribution charts. It doesn't look as if it was because of the length threshold since the short reads with n's were 34-36 basepairs. it may be becuase of adapter removal?
 
-*Answer*: Something you didn't expect or are confused about:
+*Answer*: Something you didn't expect or are confused about: I'm confused why the sequence length in the new file is 20-74 basepairs whereas in the original file it is 35-74. Is this becuase they trimmed some of them but didn't need to trim the longest one?
 
 ------------------------------------------------------------------------
 
