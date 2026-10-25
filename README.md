@@ -38,7 +38,7 @@ GA4 README template.
 Code to run `trim_galore --help` with the container:
 
 ```bash
-# Your command: apptainer exec "oras://community.wave.seqera.io/library/trim-galore:2.3.0--a56e49e832976df4" trim_galore --help
+ apptainer exec "oras://community.wave.seqera.io/library/trim-galore:2.3.0--a56e49e832976df4" trim_galore --help
 ```
 
 <!-- You don't need to paste the TrimGalore help output -->
@@ -64,7 +64,7 @@ Code to run `trim_galore --help` with the container:
 Code to run the script:
 
 ```bash
-# Your command:bash scripts/trimgalore.sh ../garrigos/fastq/S63_R1.fastq.gz ../garrigos/fastq/S63_R2.fastq.gz results/trimgalore
+bash scripts/trimgalore.sh ../garrigos/fastq/S63_R1.fastq.gz ../garrigos/fastq/S63_R2.fastq.gz results/trimgalore
 ```
 
 <!-- You don't need to paste the TrimGalore logging output -->
@@ -72,7 +72,7 @@ Code to run the script:
 Code to list the output files:
 
 ```bash
-# Your command:ls -l results/trimgalore/
+ls -l results/trimgalore/
 ```
 
 The output of the command was:
@@ -172,7 +172,7 @@ Was the difference worth the difference in cost? The cost of the second model wa
 ### 12: Run the script with a non-existent file
 
 ```bash
-# Your command:bash scripts/trimgalore.sh fastqc/r1 fastqc/r2 results/trimgalore/
+bash scripts/trimgalore.sh fastqc/r1 fastqc/r2 results/trimgalore/
 ```
 
 The output of the command was:
@@ -192,7 +192,7 @@ Error: Input file not found: fastqc/r1
 *Answer*: Your prompt: In scripts/trimgalore.sh, add a check that both input FASTQ files exist, and exit with an informative error message if they don’t.
 
 ```bash
-# Your command to test the updated script: bash scripts/trimgalore.sh fastqc/r1 fastqc/r2 results/trimgalore/
+ bash scripts/trimgalore.sh fastqc/r1 fastqc/r2 results/trimgalore/
 ```
 
 The output of the command was:
@@ -253,7 +253,7 @@ bash scripts/trimgalore.sh ../garrigos/fastq/S69_R1.fastq.gz ../garrigos/fastq/S
 <!-- You don't need to paste the output of the loop that ran TrimGalore -->
 
 ```bash
-# Your command(s) to check the output files:
+# Your command(s) to check the output files: ? ^^
 ```
 
 The output of the command(s) was:
@@ -307,7 +307,7 @@ S69: 24027 4.8%
 
 ### 19: Reflection
 
-*Answer*:
+*Answer*: Claude was helpful to me moreso in explaining things. Since this topic is still new to me, figuring out what the files are trimming and what they are removing was helpful. It was also very helpful for writing the script to get the percentage trimmed, mostly becuase I'm not sure if I could confidently write that code myself. Usually when I need help with a code like that, I ask it to explain what each of the steps do so I can learn and understand, though I think it would be better to learn by figuring it out through the classes lectures and trial and error as that would increase my confidence for the future. I think the manual ode is still helpful for me to gain familiarity with different functions, why they are being used, and to ensure there are no edits to my files or scripts without me knowing or understanding what they are doing. It is a lot more work to use and document each conversation on top of doing the other things such as git and writing the readme. 
 
 ------------------------------------------------------------------------
 
