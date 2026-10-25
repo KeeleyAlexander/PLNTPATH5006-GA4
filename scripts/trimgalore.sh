@@ -14,6 +14,16 @@ outdir="$3"
 # Initial logging
 echo "Starting script trimgalore.sh"
 date
+
+# Check that both input FASTQ files exist before doing anything else
+if [[ ! -f "$r1fastq" ]]; then
+    echo "Error: R1 FASTQ file not found: $r1fastq" >&2
+    exit 1
+fi
+if [[ ! -f "$r2fastq" ]]; then
+    echo "Error: R2 FASTQ file not found: $r2fastq" >&2
+    exit 1
+fi
 # Create the output dir if needed
 mkdir -p "$outdir"
 
