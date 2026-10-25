@@ -37,3 +37,4 @@ Practice project for the course PLNTPTH 5006, using RNA-Seq data from Garrigós 
 - Programs that aren't available in the system path should be run with Apptainer
   containers from Seqera Containers (`oras://` URLs),
   not with `module load` or by installing them
+- before running a shell script, test it first with echo 
